@@ -48,7 +48,7 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, yaml
           coverage: pcov
 
-      - uses: actions/cache@v3.0.5
+      - uses: actions/cache@v4.0.2
         name: Cache dependencies
         with:
           path: ~/.composer/cache/files
@@ -86,6 +86,6 @@ jobs:
         run: |
           vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
 
-      - uses: codecov/codecov-action@v3.1.0
+      - uses: codecov/codecov-action@v4.4.1
         with:
           fail_ci_if_error: false
