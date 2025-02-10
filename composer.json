@@ -29,6 +29,7 @@
         }
     ],
     "require": {
+        "php": "^8.2",
         "composer/semver": "^3.0@dev",
         "guzzlehttp/guzzle": "^7.0",
         "illuminate/macroable": "^11.0",
