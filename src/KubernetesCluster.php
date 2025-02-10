@@ -220,13 +220,12 @@ class KubernetesCluster
 
     /**
      * Watch for the current resource or a resource list.
-     *
-     * @param  string  $path
-     * @param  Closure  $callback
-     * @param  array  $query
-     * @return bool
      */
-    protected function watchPath(string $path, Closure $callback, array $query = ['pretty' => 1])
+    protected function watchPath(
+        string $path,
+        Closure $callback,
+        array $query = ['pretty' => 1]
+    ): bool
     {
         $resourceClass = $this->resourceClass;
         $sock = $this->createSocketConnection($this->getCallableUrl($path, $query));
@@ -251,17 +250,33 @@ class KubernetesCluster
                 return $call;
             }
         }
+        return false;
+    }
+
+    /**
+     * Check if the cluster is ready.
+     */
+    public function isReady(): bool
+    {
+        return $this->runOperation(static::GET_OP, '/readyz') === 'ok';
+    }
+
+    /**
+     * Check if the cluster is live.
+     */
+    public function isLive(): bool
+    {
+        return $this->runOperation(static::GET_OP, '/livez') === 'ok';
     }
 
     /**
      * Watch for the logs for the resource.
-     *
-     * @param  string  $path
-     * @param  Closure  $callback
-     * @param  array  $query
-     * @return bool
      */
-    protected function watchLogsPath(string $path, Closure $callback, array $query = ['pretty' => 1])
+    protected function watchLogsPath(
+        string $path,
+        Closure $callback,
+        array $query = ['pretty' => 1]
+    ): bool
     {
         $sock = $this->createSocketConnection($this->getCallableUrl($path, $query));
 
